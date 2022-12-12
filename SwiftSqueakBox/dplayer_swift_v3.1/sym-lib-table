@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name "dplayer_swift-rescue")(type "KiCad")(uri "${KIPRJMOD}/dplayer_swift-rescue.kicad_sym")(options "")(descr ""))
+  (lib (name "dplayer_swift_v2-rescue")(type "Legacy")(uri "${KIPRJMOD}/dplayer_swift_v3.1-rescue.lib")(options "")(descr ""))
+)

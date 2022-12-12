@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name "Arduino_Nano")(type "KiCad")(uri "/Users/schoetek/src/SwiftSqueakBox/KiCad_Arduino_Nano_DFPlayer_footprints-master/Arduino_Nano.pretty")(options "")(descr ""))
+)
