@@ -27,7 +27,7 @@
 > https://www.dfrobot.com/wiki/index.php/DFPlayer_Mini_SKU:DFR0299#Connection_Diagram
 > 2.This code is tested on Arduino Uno, Leonardo, Mega boards.
 
-## Kicad footprint design.
+## Kicad footprint design. (deze heb je nodig voor de kicad PCB, dus eerst deze foorprint oplading in de kicad footprint library)
 ### KiCad_Arduino_Nano_DFPlayer_footprints
 > Footprints for Arduino Nano and DFPlayer MP3 player because I had to make them. 
 >
