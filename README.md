@@ -7,7 +7,7 @@ Een klein toestel (7cmx7cm) om het geluid van Gierzwaluwen te produceren met als
 De Gierzwaluwwerkgroep vlaanderen :
 https://www.natuurpunt.be/afdelingen/gierzwaluwenwerkgroep-vlaanderen
 
-__Email voor opmerkingen,vragen, bestellingen van printplaatjes (enkel versie 3) of afgewerkte SSB's, zal later hier gepubliceerd worden. Even geduld..__
+__Email voor opmerkingen,vragen, bestellingen van printplaatjes (enkel versie 3) of afgewerkte SSB's: swiftsqueakbox@gmail.com __
 
 **Voor handleiding en ontwerp beschrijving zie de [project Wiki](https://github.com/schoetec/SwiftSqueakBox/wiki).**
  
