@@ -1,7 +1,7 @@
 /*
 MIT License
 
-Copyright (c) 2022 schoetec
+Copyright (c) 2022 schoetec / Kris Schoeters SwiftSqueakBox@gmail.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -51,7 +51,7 @@ SOFTWARE.
  2.This code is tested on Arduino Uno, Leonardo, Mega boards.
  ****************************************************/
 
-/*** Version 3 **/
+/*** Version 5 **/
 
 // Port to attiny85/45 by Kris Schoeters
 
@@ -106,22 +106,23 @@ int BOOT = 4;
 //
 int delayLoop = 0; //Delays status check
 int retryLoop = 0; //Ensure reboot is triggered after number of retry failures exceed.
-int boot_happened = 0;
 
 SoftwareSerial mySoftwareSerial(RX, TX); // RX, TX
 DFRobotDFPlayerMini myDFPlayer;
-// constants won't change. They're used here to set pin numbers:
-// Variables will change:
-int currentState;    // the current reading from the input pin
-bool pauseToggle = false;
-int lastState = HIGH;
-bool _blink = true;
 
-int startPlayerInLoopAll() {
+int startPlayerInLoopAll(bool reset) {
    // read the input on analog pin A0:
   int analogValue = analogRead(VolumeButton);
   // Rescale to potentiometer's voltage (from 0V to 5V):
-  int volume = map(analogValue, 0, 1023, 0, 25);
+  int volume = map(analogValue, 0, 1023, 5, 25);
+  if(true == reset) { // blink to indicate volume when reset only !!
+    for(int i =0 ; i < volume ; i=i+1) {
+        digitalWrite(BOOT, HIGH);
+        delay(200);
+        digitalWrite(BOOT, LOW);
+        delay(300);
+    }
+  }
   myDFPlayer.EQ(DFPLAYER_EQ_NORMAL);
   myDFPlayer.volume(volume);  //Set volume value. From 0 to 30
   myDFPlayer.enableLoopAll();  
@@ -140,6 +141,7 @@ void setup()
  
   pinMode(BUSY,INPUT);
   pinMode(BOOT,OUTPUT);
+  digitalWrite(BOOT, LOW);
   
   if (!myDFPlayer.begin(mySoftwareSerial)) {  //Use softwareSerial to communicate with mp3.
     while(true){
@@ -147,7 +149,7 @@ void setup()
     }
   }
   //
-  startPlayerInLoopAll();
+  startPlayerInLoopAll(true);
 }
 
 void loop()
@@ -164,10 +166,9 @@ void loop()
         delay(1000);
         myDFPlayer.reset();
         delay(1000);
-        startPlayerInLoopAll();
+        startPlayerInLoopAll(false);
         retryLoop=0;    
         delayLoop=0;
-        boot_happened=1;
       }
     } else {
       retryLoop=0;    
