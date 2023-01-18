@@ -1,41 +1,10 @@
-/*
-MIT License
-
-Copyright (c) 2022 schoetec / Kris Schoeters SwiftSqueakBox@gmail.com
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-*/
 
 /***************************************************
- * Swift Squeak Box
- * Code as used for version 2
- * ATTiny84-20PU
- * 
- * Author : Schoeters Kris
- * 
- */
-
-/***************************************************
-  DFPlayer - A Mini MP3 Player For Arduino
- <https://www.dfrobot.com/product-1121.html> 
+DFPlayer - A Mini MP3 Player For Arduino
+ <https://www.dfrobot.com/product-1121.html>
+ 
  ***************************************************
- Used library for DFPlayer.
+ This example shows the basic function of library for DFPlayer.
  
  Created 2016-12-07
  By [Angelo qiao](Angelo.qiao@dfrobot.com)
@@ -51,9 +20,9 @@ SOFTWARE.
  2.This code is tested on Arduino Uno, Leonardo, Mega boards.
  ****************************************************/
 
-/*** Version 5 **/
+ /*** Version 2 **/
 
-// Port to attiny85/45 by Kris Schoeters
+// Port to attiny85/45 Kris Schoeters
 
 // ATMEL ATTINY84 / ARDUINO
 //
@@ -67,7 +36,7 @@ SOFTWARE.
 //  PWM        (D  6)  PA6  7|    |8   PA5  (D  5)        PWM
 //                           +----+
 
-// ATMEL ATTINY85 / ARDUINO
+// ATMEL ATTINY85/45 / ARDUINO
 //
 //                           +-\/-+
 //   (D 5)(RESET,ADC0) PB5  1|    |8  VCC
@@ -78,6 +47,7 @@ SOFTWARE.
 
 
 #include "Arduino.h"
+//#include "SoftwareSerial.h"
 #include "DFRobotDFPlayerMini.h"
 #include <SoftwareSerial.h>
 
@@ -89,10 +59,11 @@ SOFTWARE.
 // pin 11 MOSI - 6 TX
 // pin 10 PWM  - 7 RX
 
-// Arduino uno - attiny85
+// Arduino uno - attiny85/45
 // pin 11 MOSI - 0 TX
 // pin 10 PWM  - 1 RX
 
+//dfplayer (red led)
 int RX=0;
 int TX=1;
 // Arduino uno pin A0=23 - ATtiny A0=0 [13]
@@ -115,7 +86,7 @@ int startPlayerInLoopAll(bool reset) {
   int analogValue = analogRead(VolumeButton);
   // Rescale to potentiometer's voltage (from 0V to 5V):
   int volume = map(analogValue, 0, 1023, 5, 25);
-  if(true == reset) { // blink to indicate volume when reset only !!
+  if(true == reset) {
     for(int i =0 ; i < volume ; i=i+1) {
         digitalWrite(BOOT, HIGH);
         delay(200);
@@ -132,22 +103,35 @@ void setup()
 {
 
  
-  delay(1000);
+  //delay(1000);
 
-  pinMode(RX,INPUT);
-  pinMode(TX,OUTPUT);
+  //pinMode(RX,INPUT);
+  //pinMode(TX,OUTPUT);
   
   mySoftwareSerial.begin(9600);
  
   pinMode(BUSY,INPUT);
   pinMode(BOOT,OUTPUT);
   digitalWrite(BOOT, LOW);
+
+  //delay startup to prevent DFPlayer lockup 
+  for(int i =0 ; i < 10 ; i=i+1) {
+        digitalWrite(BOOT, HIGH);
+        delay(100);
+        digitalWrite(BOOT, LOW);
+        delay(400);
+  } 
   
+  delay(1000);
+  //
   if (!myDFPlayer.begin(mySoftwareSerial)) {  //Use softwareSerial to communicate with mp3.
+    digitalWrite(BOOT, HIGH);
     while(true){
-      delay(100); // Code to compatible with ESP8266 watch dog.
+      delay(50); // Code to compatible with ESP8266 watch dog.
     }
   }
+
+  digitalWrite(BOOT, LOW);
   //
   startPlayerInLoopAll(true);
 }
