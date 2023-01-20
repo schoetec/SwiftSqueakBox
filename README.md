@@ -10,7 +10,7 @@ https://www.natuurpunt.be/afdelingen/gierzwaluwenwerkgroep-vlaanderen
 Email voor opmerkingen,vragen, bestellingen van printplaatjes of afgewerkte SSB's (enkel versie 3): swiftsqueakbox@gmail.com
 
 **Belangrijk : de hier beschreven schakeling is enkel getest met de MP3 module, DFPlayer van DFRobot (https://www.dfrobot.com/product-1121.html). Wees voorzichtig met bv de MP3-TF-16P, deze ziet er gelijkaardig uit, maar is niet hetzelfde !! (En deze worden soms aangeboden onder de naam van DFPlayer !! ).
-De software versie V5.1 werkt ook met MP3-TF-16P. Onderzoek naar een alternatief zonder deze module is gestart. Meer hierover later.**  
+De software versie V5.1 werkt ook met MP3-TF-16P (myPlayer_attiny85_v5.1). Onderzoek naar een alternatief zonder deze module is gestart. Meer hierover later.**  
 
 **Voor handleiding en ontwerp beschrijving zie de [project Wiki](https://github.com/schoetec/SwiftSqueakBox/wiki).**
  
