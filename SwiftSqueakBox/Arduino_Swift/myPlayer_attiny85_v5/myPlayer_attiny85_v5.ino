@@ -85,18 +85,19 @@ int startPlayerInLoopAll(bool reset) {
    // read the input on analog pin A0:
   int analogValue = analogRead(VolumeButton);
   // Rescale to potentiometer's voltage (from 0V to 5V):
-  int volume = map(analogValue, 0, 1023, 5, 25);
+  int volume = map(analogValue, 0, 1023, 5, 20);
   if(true == reset) {
     for(int i =0 ; i < volume ; i=i+1) {
         digitalWrite(BOOT, HIGH);
-        delay(200);
+        delay(50);
         digitalWrite(BOOT, LOW);
-        delay(300);
+        delay(70);
     }
   }
   myDFPlayer.EQ(DFPLAYER_EQ_NORMAL);
   myDFPlayer.volume(volume);  //Set volume value. From 0 to 30
   myDFPlayer.enableLoopAll();  
+  myDFPlayer.start();
 }
 
 void setup()
@@ -112,7 +113,7 @@ void setup()
  
   pinMode(BUSY,INPUT);
   pinMode(BOOT,OUTPUT);
-  digitalWrite(BOOT, LOW);
+  digitalWrite(BOOT, LO W);
 
   //delay startup to prevent DFPlayer lockup 
   for(int i =0 ; i < 10 ; i=i+1) {
